@@ -1,6 +1,18 @@
 import tkinter
 from tkinter import ttk
 
+def enter_data():
+    # Equipment Info
+    equipmentName = equipment_name_entry.get()
+    equipmentType = equipment_type_entry.get()
+    parentEquipment = parent_equipment_combobox.get() 
+    quantity = quantity_spinbox.get()
+    BoilerRoomLocation = Blr_RM_Location_combobox.get()
+
+    print("Equipment Name: ", equipmentName, "Equipment Type: ", equipmentType)
+    print("Parent Equipment: ", parentEquipment, "Quantity: ", quantity, "Boiler Room Location: ", BoilerRoomLocation)
+
+
 window = tkinter.Tk()
 window.title("Boiler Room Inventory App")
 
@@ -59,6 +71,11 @@ Ordered_check.grid(row = 1, column = 2)
 
 for widget in Other_Stuff_frame.winfo_children():
     widget.grid_configure(padx = 40, pady = 5)
+
+#Enter Data Button
+button = tkinter.Button(frame, text = "Enter Data", command = enter_data)
+button.grid(row = 3, column = 0, sticky = "news", padx = 20, pady = 10)
+
 
 window.mainloop()
 
