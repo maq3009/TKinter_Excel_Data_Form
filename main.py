@@ -1,6 +1,10 @@
 import tkinter
 from tkinter import *
 from tkinter import ttk
+import openpyxl
+
+def load_data():
+    path = "C:\Users\maq30\Desktop\Python_Projects\TKinter_Data_Form_Excel\Inventory.xlsx.xlsx"
 
 
 # Font variables
@@ -123,10 +127,12 @@ treeFrame.grid(row = 0, column = 1, pady = 10)
 treeScroll = ttk.Scrollbar(treeFrame)
 treeScroll.pack(side = "right", fill = "y")
 
-cols = ("Equipment Name", "Equipment Type", "Subscription", "Employment")
+cols = ("Equipment Name", "Equipment Type", "Parent Equipment", "Quantity")
 treeview = ttk.Treeview(treeFrame, show = "headings", columns = cols, height = 13)
 treeview.column("Equipment Name", width = 100)
 treeview.column("Equipment Type", width = 50)
+treeview.column("Parent Equipment", width = 100)
+treeview.column("Quantity", width = 50)
 
 treeview.pack()
 treeScroll.config(command = treeview.yview)
