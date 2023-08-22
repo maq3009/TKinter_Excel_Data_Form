@@ -11,6 +11,14 @@ from tkinter import ttk
 #     underline = 1,
 #     overstrike = 0)
 
+def toggle_mode():
+    if mode_switch.instate(["selected"]):
+        style.theme_use("forest-light")
+    else:
+        style.theme_use("forest-dark")
+
+
+
 def enter_data():
     # Equipment Info
     equipmentName = equipment_name_entry.get()
@@ -96,6 +104,32 @@ for widget in Other_Stuff_frame.winfo_children():
 #Enter Data Button
 button = tkinter.Button(frame, text = "Enter Data", command = enter_data)
 button.grid(row = 3, column = 0, sticky = "news", padx = 20, pady = 10)
+
+#Separator
+
+separator = ttk.Separator(frame)
+separator.grid(row = 5, column = 0, padx = 20, pady = 10, sticky = "ew") 
+
+#Dark/Light Switch
+
+mode_switch = ttk.Checkbutton(
+    frame, text = "Dark/Light Mode", style = "Switch", command = toggle_mode)
+mode_switch.grid(row = 6, column = 0, padx = 5, pady = 10, sticky = "nsew")
+
+#Right-side frame
+
+treeFrame = ttk.Frame(frame)
+treeFrame.grid(row = 0, column = 1, pady = 10)
+treeScroll = ttk.Scrollbar(treeFrame)
+treeScroll.pack(side = "right", fill = "y")
+
+cols = ("Equipment Name", "Equipment Type", "Subscription", "Employment")
+treeview = ttk.Treeview(treeFrame, show = "headings", columns = cols, height = 13)
+treeview.column("Equipment Name", width = 100)
+treeview.column("Equipment Type", width = 50)
+
+treeview.pack()
+treeScroll.config(command = treeview.yview)
 
 
 window.mainloop()
