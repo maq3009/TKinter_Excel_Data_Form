@@ -1,5 +1,15 @@
 import tkinter
+from tkinter import *
 from tkinter import ttk
+
+
+# Font variables
+# bigFont = Font(
+#     family = "Helvetica",
+#     size = 14,
+#     weight = "bold",
+#     underline = 1,
+#     overstrike = 0)
 
 def enter_data():
     # Equipment Info
@@ -8,20 +18,31 @@ def enter_data():
     parentEquipment = parent_equipment_combobox.get() 
     quantity = quantity_spinbox.get()
     BoilerRoomLocation = Blr_RM_Location_combobox.get()
+    stockStatus = stock_status_var.get()
 
     print("Equipment Name: ", equipmentName, "Equipment Type: ", equipmentType)
     print("Parent Equipment: ", parentEquipment, "Quantity: ", quantity, "Boiler Room Location: ", BoilerRoomLocation)
-
+    print("Stock Status", stockStatus)
 
 window = tkinter.Tk()
+style = ttk.Style(window)
+window.tk.call("source", "forest-light.tcl")
+window.tk.call("source", "forest-dark.tcl")
+style.theme_use("forest-dark")
 window.title("Boiler Room Inventory App")
+
+label = ttk.Label
+label.pack
 
 frame = tkinter.Frame(window)
 frame.pack()
 
+
 # Saving Equipment Information
-equipment_info_frame = tkinter.LabelFrame(frame, text = "Equipment Info")
+equipment_info_frame = tkinter.LabelFrame(frame, text = "EQUIPMENT INFO", font=("Poor Richard", 14, "bold") ,labelanchor="n")
 equipment_info_frame.grid(row = 0, column = 0, padx = 20, pady = 20)
+
+bold_font = ("Helvetica", 14, "bold")
 
 equipment_name_label = tkinter.Label(equipment_info_frame, text = "Equipment Name")
 equipment_name_label.grid(row = 0, column = 0)
@@ -39,7 +60,7 @@ parent_equipment.grid(row = 0, column = 2)
 parent_equipment_combobox.grid(row = 1, column = 2)
 
 quantity_label = tkinter.Label(equipment_info_frame, text = "Quantity")
-quantity_spinbox = tkinter.Spinbox(equipment_info_frame, from_= 1, to = 1000)
+quantity_spinbox = tkinter.Spinbox(equipment_info_frame, from_= 0, to = 1000)
 quantity_label.grid(row = 2, column = 0)
 quantity_spinbox.grid(row = 3, column = 0)
 
@@ -56,13 +77,13 @@ for widget in equipment_info_frame.winfo_children():
 
 
 #Checkboxes for something
-Other_Stuff_frame = tkinter.LabelFrame(frame, text = "Stock Status")
+Other_Stuff_frame = tkinter.LabelFrame(frame, text = "STOCK STATUS", font=("Poor Richard", 14, "bold") , labelanchor="n")
 Other_Stuff_frame.grid(row = 1, column = 0, sticky = "news", padx = 20, pady = 20)
 
-
-In_Stock_check = tkinter.Checkbutton(Other_Stuff_frame, text = "In Stock")
-Out_of_Stock_check = tkinter.Checkbutton(Other_Stuff_frame, text = "Out of Stock")
-Ordered_check = tkinter.Checkbutton(Other_Stuff_frame, text = "Ordered")
+stock_status_var = tkinter.StringVar()
+In_Stock_check = tkinter.Checkbutton(Other_Stuff_frame, text = "In Stock", variable = stock_status_var, onvalue = "In Stock", offvalue = "Out of Stock")
+Out_of_Stock_check = tkinter.Checkbutton(Other_Stuff_frame, text = "Out of Stock", variable = stock_status_var, onvalue = "Out of Stock", offvalue = "In Stock")
+Ordered_check = tkinter.Checkbutton(Other_Stuff_frame, text = "Ordered", variable = stock_status_var, onvalue = "Ordered", offvalue = "Not Ordered")
 
 
 In_Stock_check.grid(row = 1, column = 0)
