@@ -12,6 +12,9 @@ def load_data():
     print(list_values)
     for col_name in list_values[0]:
         treeview.heading(col_name, text = col_name)
+    
+    for value_tuple in list_values[1:]:
+        treeview.insert('', tkinter.END, values = value_tuple)
 
 # Font variables
 # bigFont = Font(
@@ -29,7 +32,7 @@ def toggle_mode():
 
 
 
-def enter_data():
+def insert_row():
     # Equipment Info
     equipmentName = equipment_name_entry.get()
     equipmentType = equipment_type_entry.get()
@@ -38,9 +41,15 @@ def enter_data():
     BoilerRoomLocation = Blr_RM_Location_combobox.get()
     stockStatus = stock_status_var.get()
 
-    print("Equipment Name: ", equipmentName, "Equipment Type: ", equipmentType)
-    print("Parent Equipment: ", parentEquipment, "Quantity: ", quantity, "Boiler Room Location: ", BoilerRoomLocation)
-    print("Stock Status", stockStatus)
+    # Insert row into excel sheet
+    path = "C:\\Users\\maq30\\Downloads\\Inventory.xlsx"
+    workbook = openpyxl.load_workbook(path)
+    sheet = workbook.active
+    row_values = [equipmentName, equipmentType, parentEquipment, stockStatus]
+    sheet.append(row_values)
+    workbook.save(path)
+    # Insert into treeview
+    treeview.insert('', tkinter.END, values = row_values)
 
 window = tkinter.Tk()
 style = ttk.Style(window)
@@ -112,7 +121,7 @@ for widget in Other_Stuff_frame.winfo_children():
     widget.grid_configure(padx = 40, pady = 5)
 
 #Enter Data Button
-button = tkinter.Button(frame, text = "Enter Data", command = enter_data)
+button = tkinter.Button(frame, text = "Enter Data", command = insert_row)
 button.grid(row = 3, column = 0, sticky = "news", padx = 20, pady = 10)
 
 #Separator
