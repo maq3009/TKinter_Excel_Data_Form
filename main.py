@@ -4,8 +4,14 @@ from tkinter import ttk
 import openpyxl
 
 def load_data():
-    path = "C:\Users\maq30\Desktop\Python_Projects\TKinter_Data_Form_Excel\Inventory.xlsx.xlsx"
+    path = "C:\\Users\\maq30\\Downloads\\Inventory.xlsx"
+    workbook = openpyxl.load_workbook(path)
+    sheet = workbook.active
 
+    list_values = list(sheet.values)
+    print(list_values)
+    for col_name in list_values[0]:
+        treeview.heading(col_name, text = col_name)
 
 # Font variables
 # bigFont = Font(
@@ -127,15 +133,16 @@ treeFrame.grid(row = 0, column = 1, pady = 10)
 treeScroll = ttk.Scrollbar(treeFrame)
 treeScroll.pack(side = "right", fill = "y")
 
-cols = ("Equipment Name", "Equipment Type", "Parent Equipment", "Quantity")
+cols = ("Equipment Name", "Equipment Type", "Parent Equipment", "Stock Status")
 treeview = ttk.Treeview(treeFrame, show = "headings", columns = cols, height = 13)
 treeview.column("Equipment Name", width = 100)
 treeview.column("Equipment Type", width = 50)
 treeview.column("Parent Equipment", width = 100)
-treeview.column("Quantity", width = 50)
+treeview.column("Stock Status", width = 50)
 
 treeview.pack()
 treeScroll.config(command = treeview.yview)
+load_data()
 
 
 window.mainloop()
